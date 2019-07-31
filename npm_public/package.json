@@ -1,0 +1,26 @@
+{
+  "name": "graphio",
+  "version": "1.0.0",
+  "description": "graph data on client canvases!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Azurethi/Graphio.git"
+  },
+  "keywords": [
+    "graphing",
+    "canvas",
+    "data",
+    "analysis",
+    "diagram"
+  ],
+  "author": "Azurethi",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Azurethi/Graphio/issues"
+  },
+  "homepage": "https://github.com/Azurethi/Graphio#readme"
+}
