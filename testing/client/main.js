@@ -1,4 +1,5 @@
 function onload(){
+    //fullscreen canvas
     var canvas = document.getElementById('canvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -22,7 +23,9 @@ function onload(){
         plot.datasets.push('sinSamples'+j);
     }
 
-    //draw everything
+    //add plot
     graphio.plots.push(plot);
+
+    //draw everything
     graphio.draw();
 }
