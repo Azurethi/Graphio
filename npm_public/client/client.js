@@ -234,7 +234,7 @@ graphio.draw = ()=>{
 
         //draw gridlines
         c.beginPath();
-        for(var x = 0; x<1; x+=gx){
+        for(var x = 0; x<=1; x+=gx){
             c.moveTo(x*pw+px,py);
             c.lineTo(x*pw+px,py+ph);
             if(plot.axis.x.numbered){
