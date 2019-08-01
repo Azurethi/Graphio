@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Azurethi/Graphio/issues"
   },
-  "homepage": "https://github.com/Azurethi/Graphio#readme"
+  "homepage": "https://github.com/Azurethi/Graphio#readme",
+  "dependencies": {
+    "socket.io": "^2.2.0"
+  }
 }
