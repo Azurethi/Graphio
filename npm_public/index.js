@@ -1,10 +1,12 @@
 "use strict";
-const fs = require('fs');
-var ioinit=false;
-
-exports.init=(app)=>{
+exports.init=(app,io)=>{
     app.get('/graphio',(req,res)=>{
         res.sendFile(__dirname+'/client/client.js');
+    });
+    
+    io.on('connection',(soc)=>{
+        console.log('Client Connected!');
+        setInterval(()=>{soc.emit('graphio.update', {type:'ignore'})}, 100)
     });
 }
 
