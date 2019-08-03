@@ -14,6 +14,25 @@ var graphio = (()=>{
 
     var draw={///TODO add more draw helper functions?
         //Line types
+        '--':(plot)=>{
+            var inherit = draw['-'](plot);
+            inherit.final = () =>{
+                plot.canvas.ctx.setLineDash([10, 5]);
+                plot.canvas.ctx.stroke();
+                plot.canvas.ctx.setLineDash([]);
+            }
+            return inherit;
+        },
+        '-.':(plot)=>{
+            var inherit = draw['-'](plot);
+            inherit.final = () =>{
+                plot.canvas.ctx.setLineDash([10,4,4,4]);
+                plot.canvas.ctx.stroke();
+                plot.canvas.ctx.setLineDash([]);
+            }
+            return inherit;
+        },
+        '.-':(plot)=>draw['-.'](plot),
         '-':(plot)=>{
             plot.canvas.ctx.beginPath();
             var firstPoint = true;
@@ -31,6 +50,15 @@ var graphio = (()=>{
                 }
             };
         },
+        ':':(plot)=>{
+            var inherit = draw['-'](plot);
+            inherit.final = () =>{
+                plot.canvas.ctx.setLineDash([4, 4]);
+                plot.canvas.ctx.stroke();
+                plot.canvas.ctx.setLineDash([]);
+            }
+            return inherit;
+        },
         'x':(plot)=>(
             {
                 point:(c)=>{
@@ -44,8 +72,167 @@ var graphio = (()=>{
                 final:false,init:false
             }
         ),
+        '+':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+4,c.y);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y);
+                    plot.canvas.ctx.moveTo(c.x,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x,c.y-4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        'o':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.arc(c.x,c.y,4,0,Math.PI*2);
+                },
+                final:false,init:false
+            }
+        ),
+        '*':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+4,c.y);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y);
+                    plot.canvas.ctx.moveTo(c.x,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x,c.y-4);
+                    plot.canvas.ctx.moveTo(c.x+4,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y-4);
+                    plot.canvas.ctx.moveTo(c.x-4,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y-4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        '.':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+1,c.y);
+                    plot.canvas.ctx.lineTo(c.x-1,c.y);
+                    plot.canvas.ctx.moveTo(c.x,c.y+1);
+                    plot.canvas.ctx.lineTo(c.x,c.y-1);
+                    plot.canvas.ctx.moveTo(c.x+1,c.y+1);
+                    plot.canvas.ctx.lineTo(c.x-1,c.y-1);
+                    plot.canvas.ctx.moveTo(c.x-1,c.y+1);
+                    plot.canvas.ctx.lineTo(c.x+1,c.y-1);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        'square':(plot)=>draw['s'](plot),
+        's':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+4,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y+4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        'diamond':(plot)=>draw['d'](plot),
+        'd':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+4,c.y);
+                    plot.canvas.ctx.lineTo(c.x,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y);
+                    plot.canvas.ctx.lineTo(c.x,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        '^':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x-4,c.y+4);
+                    plot.canvas.ctx.lineTo(c.x,c.y);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y+4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        'v':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x-4,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x,c.y);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y-4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        '>':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x-4,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x,c.y);
+                    plot.canvas.ctx.lineTo(c.x-4,c.y+4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        '<':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+4,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x,c.y);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y+4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        'pentagram':(plot)=>draw['p'](plot),
+        'p':(plot)=>(
+            {
+                point:(c)=>{
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(c.x+4,c.y-4);
+                    plot.canvas.ctx.lineTo(c.x,c.y);
+                    plot.canvas.ctx.lineTo(c.x+4,c.y+4);
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        ),
+        'hexagram':(plot)=>draw['h'](plot),
+        'h':(plot)=>(
+            {
+                point:(c)=>{
+                    var poly = fun.tools.polyPoints(6,c);
+                    plot.canvas.ctx.beginPath();
+                    plot.canvas.ctx.moveTo(poly[0].x,poly[0].y);
+                    poly.forEach();
+                    plot.canvas.ctx.stroke();
+                },
+                final:false,init:false
+            }
+        )
     };
-
+    
     //may need to define fun before setting fun!
     var fun = {
         
