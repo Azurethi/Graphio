@@ -326,8 +326,9 @@ var graphio = (()=>{
             if(datasets[id]) throw 'id taken';
             if(dim<2 || dim>3) throw 'dim out of range!'
             //TODO more validation
+            if(limit==0) limit = -1;
             datasets[id] = {
-                label,limit,data,dim
+                label,limit,data,dim,pos:0
             };
         },
         getDataset:(id)=>(datasets[id]),
@@ -500,10 +501,25 @@ var graphio = (()=>{
 
         //Server connection
         connect:(socket)=>{
-            //TODO imp.
-            socket.on('graphio.update', (updateInfo)=>{
-                console.log('got update!  '+updateInfo);
+            socket.on('gio.dataset.new', (data)=>{
+                fun.addDataset(data.id,data.data,data.dim,data.label,data.limit)
             });
+            socket.on('gio.dataset.all', (data)=>{
+                datasets[data.datasetID].data = data.points;
+                datasets[data.datasetID].pos = data.points.length;
+            });
+            socket.on('gio.dataset.single', (data)=>{
+                var set = datasets[data.datasetID];
+                if(set.limit==-1){
+                    set.data.push(data.point);
+                } else {
+                    set.data[(data.pos || set.pos++)%(set.limit-1)] = data.point;
+                }
+            });
+            socket.on('gio.draw', ()=>{
+                fun.draw();
+            });
+            socket.emit('gio.register');
         },
 
         //TODO remove?

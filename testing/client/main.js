@@ -15,23 +15,15 @@ function onload(){
         y:{min:-3,max:3,gridlines:0.1,numbered:true},
         autorange:false
     };
-
-    //create datasets
-    for(var j = -4; j<3; j++){
-        var samples = [];
-        for(var i = 0; i<8; i+=0.05){
-            samples.push(Math.sin(i)+Math.sin(10*i)/5+Math.random()/10+j/10);
-        }
-        var points = graphio.tools.arrayToPoints1D(samples,0,0.05);
-        graphio.addDataset('sinSamples'+j,points);
-        graphio.assignDataset('sinSamples'+j, plot);// , style='--');
-    }
-
-    plot.draw[2].style = '--';
-    plot.draw[3].style = '--';
-    plot.draw[4].style = ':';
-    plot.draw[5].style = '-.';
-
+    
+    graphio.assignDataset('sinSamples2',plot);
+    graphio.assignDataset('sinSamples1',plot);
+    graphio.assignDataset('sinSamples0',plot);
+    graphio.assignDataset('sinSamples-1',plot);
+    graphio.assignDataset('sinSamples-2',plot);
+    graphio.assignDataset('sinSamples-3',plot);
+    graphio.assignDataset('sinSamples-4',plot);
+    
     //add plot
     console.log("Adding plot:",plot);
     graphio.addPlot(plot);
@@ -39,6 +31,6 @@ function onload(){
     //allow server connection (not required for clientside only things like above)
     graphio.connect(io());
 
-    //draw everything
-    graphio.draw();
+    //draw everything       No need since the server will send the draw command after the datasets!
+    //graphio.draw();
 }
