@@ -271,7 +271,7 @@ var graphio = (()=>{
         //Plot management
         createPlot:(name=fun.default.name,canvasID=fun.default.canvas.id,position=fun.default.position,axis=fun.default.axis)=>{
             //TODO validation
-            return {name,canvas:{id: canvasID,ref: false,ctx: false}, position,axis,draw:[], colors:fun.default.colors}
+            return JSON.parse(JSON.stringify({name,canvas:{id: canvasID,ref: false,ctx: false}, position,axis,draw:[], colors:fun.default.colors}));
         },
         addPlot:(plot)=>{
             //TODO more validation
@@ -281,10 +281,11 @@ var graphio = (()=>{
             plots.push(plot);
         },
         getPlot:(plotName)=>{
+            var ret = null;
             plots.forEach(plot=>{
-                if(plot.name==plotName) return plot;
+                if(plot.name==plotName) ret = plot;
             });
-            return null;
+            return ret;
         },
         removePlot:(plotName)=>{
             var removed = 0;
