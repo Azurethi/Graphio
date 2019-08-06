@@ -1,6 +1,6 @@
 {
   "name": "graphio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "graph data on client canvases!",
   "main": "index.js",
   "scripts": {
