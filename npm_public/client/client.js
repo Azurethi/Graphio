@@ -375,6 +375,10 @@ var graphio = (()=>{
                     });
                 }
                 return ret;
+            },
+            debug:()=>{
+                console.log('plots: ',plots);
+                console.log('datasets: ',datasets);
             }
         },
 
@@ -428,7 +432,7 @@ var graphio = (()=>{
                 c.fillStyle = plot.colors.background;
                 c.fill();
                 c.fillStyle = plot.colors.border;
-
+                
                 //draw x gridlines
                 c.beginPath();
                 for(var x = 0; x<=1; x+=gx){
@@ -520,12 +524,6 @@ var graphio = (()=>{
                 fun.draw();
             });
             socket.emit('gio.register');
-        },
-
-        //TODO remove?
-        debug:()=>{
-            console.log('plots: ',plots);
-            console.log('datasets: ',datasets);
         }
     };
     return fun;
